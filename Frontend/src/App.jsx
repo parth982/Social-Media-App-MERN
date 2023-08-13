@@ -1,13 +1,13 @@
 import React from "react";
 import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
-import { useMemo } from "react";
+import Navbar from "./components/global/NavBar";
 
 const App = () => {
   return (
     <BrowserRouter>
-      <CssBaseline />
+      <Navbar />
       <Routes>
-        <Route path="/" element={<LoginPage />} />
+        {/* <Route path="/" element={<LoginPage />} /> */}
         {/* <Route
           path="/home"
           element={isAuth ? <HomePage /> : <Navigate to="/" />}
@@ -22,3 +22,16 @@ const App = () => {
 };
 
 export default App;
+
+// import React from "react";
+// import Practice from "./components/Practice";
+
+// const App = () => {
+//   return (
+//     <div>
+//       <Practice />
+//     </div>
+//   );
+// };
+
+// export default App;

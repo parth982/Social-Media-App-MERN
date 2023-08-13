@@ -1,16 +1,10 @@
 import { create } from "zustand";
 
 const useStore = create((set) => ({
-  mode: "light",
   user: null,
   token: null,
   posts: [],
 
-  setMode: () => {
-    set((state) => ({
-      mode: state.mode === "light" ? "dark" : "light",
-    }));
-  },
   setLogin: (user, token) => {
     set({
       user,

@@ -1,7 +1,7 @@
 import { Box } from "@chakra-ui/react";
 import { chakra } from "@chakra-ui/system";
 
-const FlexBetween = chakra(Box, {
+const FlexBox = chakra(Box, {
   baseStyle: {
     display: "flex",
     justifyContent: "space-between",
@@ -9,4 +9,4 @@ const FlexBetween = chakra(Box, {
   },
 });
 
-export default FlexBetween;
+export default FlexBox;
