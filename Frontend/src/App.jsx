@@ -1,20 +1,24 @@
 import React from "react";
 import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
 import Navbar from "./components/global/NavBar";
+import StartPage from "./components/Pages/StartPage";
+import useStore from "./state/store";
 
 const App = () => {
+  const { isLogged } = useStore();
+
   return (
     <BrowserRouter>
-      <Navbar />
+      {/* <Navbar /> */}
       <Routes>
-        {/* <Route path="/" element={<LoginPage />} /> */}
+        <Route path="/" element={<StartPage />} />
         {/* <Route
           path="/home"
-          element={isAuth ? <HomePage /> : <Navigate to="/" />}
+          element={isLogged ? <HomePage /> : <Navigate to="/" />}
         />
         <Route
           path="/profile/:userId"
-          element={isAuth ? <ProfilePage /> : <Navigate to="/" />}
+          element={isLogged ? <ProfilePage /> : <Navigate to="/" />}
         /> */}
       </Routes>
     </BrowserRouter>

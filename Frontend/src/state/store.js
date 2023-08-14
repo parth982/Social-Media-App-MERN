@@ -4,6 +4,11 @@ const useStore = create((set) => ({
   user: null,
   token: null,
   posts: [],
+  isLogged: false,
+
+  setIsLogged: () => {
+    set((store) => ({ isLogged: !store.isLogged }));
+  },
 
   setLogin: (user, token) => {
     set({

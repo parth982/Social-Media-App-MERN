@@ -5,15 +5,8 @@ import generateJwt from "../config/generateJwt.js";
 // Register User
 const register = async (req, res) => {
   try {
-    const {
-      userName,
-      email,
-      password,
-      picPath,
-      friends,
-      location,
-      occupation,
-    } = req.body;
+    const { userName, email, password, picPath, location, occupation } =
+      req.body;
 
     const salt = await bcrypt.genSalt();
     const HashedPswd = await bcrypt.hash(password, salt);
@@ -23,13 +16,13 @@ const register = async (req, res) => {
       email,
       password: HashedPswd,
       picPath,
-      friends,
       location,
       occupation,
     });
     const savedUser = await newUser.save();
     res.status(201).json(savedUser);
   } catch (err) {
+    console.log(err);
     res.status(500).json({ error: err.message });
   }
 };
@@ -49,6 +42,7 @@ const login = async (req, res) => {
     delete user.password;
     res.status(200).json({ token, user });
   } catch (err) {
+    console.log(err);
     res.status(500).json({ error: err.message });
   }
 };
