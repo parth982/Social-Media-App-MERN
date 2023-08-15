@@ -31,7 +31,7 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const user = await User.findOne({ email: email });
+    let user = await User.findOne({ email: email });
     if (!user) return res.status(400).json({ msg: "User does not exist. " });
 
     const pswdMatch = await bcrypt.compare(password, user.password);
@@ -39,8 +39,12 @@ const login = async (req, res) => {
       return res.status(400).json({ msg: "Invalid credentials. " });
 
     const token = generateJwt(user._id);
-    delete user.password;
-    res.status(200).json({ token, user });
+
+    // Convert Mongoose Document to plain JavaScript object
+    const userObject = user.toObject();
+    delete userObject.password;
+
+    res.status(200).json({ token, user: userObject });
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: err.message });

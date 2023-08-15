@@ -39,6 +39,12 @@ const NavBar = () => {
   const textColor = { light: "gray.700", dark: "gray.200" };
   const bgColor = { light: "gray.100", dark: "gray.700" };
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setLogout();
+    navigate("/");
+  };
+
   return (
     <Box
       bg={bgColor[colorMode]}
@@ -48,7 +54,7 @@ const NavBar = () => {
     >
       <Flex justify="space-between" align="center" p="1rem" boxShadow="md">
         <Flex align="center">
-          <Heading as="h1" size="md">
+          <Heading as="h1" size="lg">
             MediaX
           </Heading>
           {isDesktopScreen && (
@@ -77,12 +83,11 @@ const NavBar = () => {
                 variant="outline"
                 colorScheme={colorMode === "dark" ? "gray" : "blue"}
               >
-                Brian
-                {/* {user.userName} */}
+                {user?.userName}
               </MenuButton>
               <MenuList>
                 <MenuItem>Your Profile</MenuItem>
-                <MenuItem onClick={setLogout}>Log-Out</MenuItem>
+                <MenuItem onClick={handleLogout}>Log-Out</MenuItem>
               </MenuList>
             </Menu>
           </Flex>
@@ -102,7 +107,7 @@ const NavBar = () => {
           position="fixed"
           top="0px"
           right="0"
-          height="40%"
+          height="48%"
           zIndex="10"
           width="35%"
           bg={colorMode === "dark" ? "gray.700" : "white"}
@@ -110,6 +115,7 @@ const NavBar = () => {
           pt="2"
           border={"1px groove "}
           borderRadius={7}
+          shadow={"2xl"}
         >
           <Flex justify="flex-end">
             <IconButton
@@ -144,7 +150,7 @@ const NavBar = () => {
               </MenuButton>
               <MenuList>
                 <MenuItem>Your Profile</MenuItem>
-                <MenuItem onClick={setLogout}>Log-Out</MenuItem>
+                <MenuItem onClick={handleLogout}>Log-Out</MenuItem>
               </MenuList>
             </Menu>
           </Flex>

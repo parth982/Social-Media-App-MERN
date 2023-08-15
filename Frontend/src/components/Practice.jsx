@@ -1,16 +1,7 @@
-// import React from "react";
-// import FlexBox from "./Peices/FlexBox";
+import React from "react";
 
-// const Practice = () => {
-//   return (
-//     <div>
-//       <FlexBox>
-//         <div>A</div>
-//         <div>B</div>
-//         <div>C</div>
-//       </FlexBox>
-//     </div>
-//   );
-// };
+const Practice = () => {
+  return <div>Practice</div>;
+};
 
-// export default Practice;
+export default Practice;

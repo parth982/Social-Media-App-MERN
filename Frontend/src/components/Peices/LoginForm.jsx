@@ -30,11 +30,10 @@ const schema = z.object({
 const LoginForm = () => {
   const toast = useToast();
   const navigate = useNavigate();
-  const { setIsLogged, setLogin } = useStore();
+  const { setLogin, setLogout } = useStore();
   const [show, setShow] = useState(false);
   const [isLoading, setLoading] = useState(false);
-  const { colorMode } = useColorMode(); // Access color mode (light/dark)
-
+  const { colorMode } = useColorMode();
   const {
     register,
     handleSubmit,
@@ -45,7 +44,6 @@ const LoginForm = () => {
   });
 
   const submitHandler = (formData) => {
-    console.log("Loggin user:", formData);
     axios
       .post("http://localhost:4000/auth/login", formData)
       .then((res) => {
@@ -59,9 +57,8 @@ const LoginForm = () => {
           position: "bottom",
         });
         localStorage.setItem("token", res.data.token);
-        setIsLogged(true);
         setLogin(res.data.user, res.data.token);
-        // navigate("/home");
+        navigate("/home");
       })
       .catch((err) => {
         toast({
