@@ -27,7 +27,7 @@ import {
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useStore from "../../state/store";
-import ColorModeSwitch from "../Color Mode/ColorModeSwitch";
+import ColorModeSwitch from "../ColorMode/ColorModeSwitch";
 
 const NavBar = () => {
   const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
@@ -107,9 +107,9 @@ const NavBar = () => {
           position="fixed"
           top="0px"
           right="0"
-          height="48%"
+          height="42%"
           zIndex="10"
-          width="35%"
+          width="25%"
           bg={colorMode === "dark" ? "gray.700" : "white"}
           px="4"
           pt="2"

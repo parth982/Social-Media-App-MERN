@@ -1,6 +1,6 @@
 import { Box, Image } from "@chakra-ui/react";
 
-const UserImg = ({ image, size = "60px" }) => {
+const UserImage = ({ image, size = "60px" }) => {
   return (
     <Box
       width={size}
@@ -20,4 +20,4 @@ const UserImg = ({ image, size = "60px" }) => {
   );
 };
 
-export default UserImg;
+export default UserImage;

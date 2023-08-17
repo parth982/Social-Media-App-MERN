@@ -1,13 +1,11 @@
 import {
   Box,
   Button,
-  Flex,
   FormControl,
   FormLabel,
   Input,
   InputGroup,
   InputRightElement,
-  Text,
   VStack,
   useColorMode,
   useToast,
@@ -15,16 +13,14 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import React, { useState } from "react";
-import Dropzone from "react-dropzone";
 import { useForm } from "react-hook-form";
-import { MdEdit } from "react-icons/md";
 import { z } from "zod";
 
 const schema = z.object({
   userName: z.string(),
   email: z.string().email(),
   password: z.string(),
-  picPath: z.string(),
+  picture: z.any(),
   location: z.string(),
   occupation: z.string(),
 });
@@ -40,9 +36,13 @@ const RegisterForm = () => {
   });
 
   const submitHandler = (formData) => {
+    const sendData = new FormData();
+    for (const key in formData) sendData.append(key, formData[key]);
+    sendData.append("picPath", formData.picture.name);
+
     setLoading(true);
     axios
-      .post("http://localhost:4000/auth/register", formData)
+      .post("http://localhost:4000/auth/register", sendData)
       .then((res) => {
         setLoading(false);
         reset();
@@ -105,36 +105,19 @@ const RegisterForm = () => {
 
         <FormControl isRequired>
           <FormLabel>Profile Picture</FormLabel>
-          <Dropzone
-            acceptedFiles=".jpg,.jpeg,.png"
-            multiple={false}
-            onDrop={(acceptedFiles) => {
-              setValue("picPath", acceptedFiles[0].name);
+          <Input
+            type="file"
+            accept=".jpg, .jpeg, .png, .webp"
+            onChange={(event) => setValue("picture", event.target.files[0])}
+            borderWidth="1px"
+            borderColor="gray"
+            borderRadius="md"
+            pt={"5px"}
+            _focus={{
+              borderColor: "purple.500",
+              boxShadow: "outline",
             }}
-          >
-            {({ getRootProps, getInputProps }) => (
-              <Box
-                {...getRootProps()}
-                p="10px"
-                width="100%"
-                border="2px dashed teal"
-                borderRadius="md"
-                _hover={{ cursor: "pointer" }}
-              >
-                <Input {...getInputProps()} />
-                {!getValues().picPath ? (
-                  <Text fontSize="md" fontWeight="bold" color="gray.500">
-                    Add Picture Here
-                  </Text>
-                ) : (
-                  <Flex justifyContent="space-between" alignItems="center">
-                    <Text>{getValues().picPath}</Text>
-                    <MdEdit />
-                  </Flex>
-                )}
-              </Box>
-            )}
-          </Dropzone>
+          />
         </FormControl>
 
         <FormControl isRequired>

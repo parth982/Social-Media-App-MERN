@@ -1,12 +1,11 @@
 import React from "react";
-import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
-import StartPage from "./components/Pages/StartPage";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import HomePage from "./components/Pages/HomePage";
+import StartPage from "./components/Pages/StartPage";
 import useStore from "./state/store";
 
 const App = () => {
   const { isLogged } = useStore();
-  console.log(isLogged);
 
   return (
     <BrowserRouter>

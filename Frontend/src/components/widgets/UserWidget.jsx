@@ -1,25 +1,25 @@
 import {
   Box,
+  Divider,
   Flex,
   Heading,
   Icon,
   Text,
-  Divider,
   useColorModeValue,
 } from "@chakra-ui/react";
 import {
-  MdManageAccounts,
   MdEdit,
+  MdManageAccounts,
   MdOutlineLocationOn,
   MdWorkOutline,
 } from "react-icons/md";
 
-import Wrapper from "../components/Peices/Wrapper";
-import UserImg from "../components/Peices/UserImg";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import useStore from "../state/store";
-import axios from "axios";
+import useStore from "../../state/store";
+import UserImage from "../Peices/UserImage";
+import Wrapper from "../Peices/Wrapper";
 
 const UserWidget = ({ userId, picPath }) => {
   const [user, setUser] = useState(null);
@@ -56,7 +56,7 @@ const UserWidget = ({ userId, picPath }) => {
       >
         <Flex align="center" justify="space-between" mb="3">
           <Flex align="center">
-            <UserImg image={picPath} size="80px" />
+            <UserImage image={picPath} size="80px" />
             <Box ml="3">
               <Heading as="h4" size="md" _hover={{ color: "purple.500" }}>
                 {userName}
