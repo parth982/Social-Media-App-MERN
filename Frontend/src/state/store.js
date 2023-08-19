@@ -24,20 +24,18 @@ const useStore = create(
           isLogged: false,
         });
       },
-
       setFriends: (friends) => {
-        set((state) => {
-          if (state.user) {
-            state.user.friends = friends;
-          } else {
-            console.error("user friends non-existent :(");
-          }
-        });
+        set((state) => ({
+          user: {
+            ...state.user,
+            friends: friends,
+          },
+        }));
       },
 
       setPosts: (posts) => {
         set({
-          posts,
+          posts: posts,
         });
       },
 

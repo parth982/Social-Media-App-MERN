@@ -6,13 +6,9 @@ import {
   Icon,
   Text,
   useColorModeValue,
+  Image,
 } from "@chakra-ui/react";
-import {
-  MdEdit,
-  MdManageAccounts,
-  MdOutlineLocationOn,
-  MdWorkOutline,
-} from "react-icons/md";
+import { MdEdit, MdOutlineLocationOn, MdWorkOutline } from "react-icons/md";
 
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -27,14 +23,19 @@ const UserWidget = ({ userId, picPath }) => {
   const { token } = useStore();
   const textColor = useColorModeValue("gray.800", "gray.200");
 
-  const getUser = () => {
-    const headers = { Authorization: `Bearer ${token}` };
-    axios
-      .get(`http://localhost:4000/users/${userId}`, { headers })
-      .then((res) => {
-        setUser(res.data.user);
-      });
+  const getUser = async () => {
+    try {
+      const headers = { Authorization: `Bearer ${token}` };
+      const response = await axios.get(
+        `http://localhost:4000/users/${userId}`,
+        { headers }
+      );
+      setUser(response.data.user);
+    } catch (error) {
+      console.error("Error fetching user:", error);
+    }
   };
+
   useEffect(() => {
     getUser();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -49,25 +50,26 @@ const UserWidget = ({ userId, picPath }) => {
         direction="column"
         color={textColor}
         borderRadius="lg"
-        minWidth={"280px"}
-        p={2}
-        onClick={() => navigate(`/profile/${userId}`)}
+        p={4}
+        bg={useColorModeValue("white", "gray.800")}
+        boxShadow="md"
         _hover={{ cursor: "pointer" }}
+        onClick={() => navigate(`/profile/${userId}`)}
       >
-        <Flex align="center" justify="space-between" mb="3">
-          <Flex align="center">
-            <UserImage image={picPath} size="80px" />
-            <Box ml="3">
-              <Heading as="h4" size="md" _hover={{ color: "purple.500" }}>
-                {userName}
-              </Heading>
-              <Text>{friends?.length} friends</Text>
-            </Box>
-          </Flex>
-          <Icon as={MdManageAccounts} fontSize="xl" color="gray.400" />
+        <Flex align="center" justify="center" mb="3">
+          <UserImage image={picPath} size="80px" />
         </Flex>
-        <Divider my="2" />
-        <Flex direction="column" gap="2">
+        <Heading
+          as="h4"
+          size="md"
+          textAlign="center"
+          _hover={{ color: "purple.500" }}
+        >
+          {userName}
+        </Heading>
+        <Text textAlign="center">{friends?.length} friends</Text>
+        <Divider my="3" />
+        <Flex direction="column" gap="1">
           <Flex align="center">
             <Icon as={MdOutlineLocationOn} fontSize="xl" color="gray.400" />
             <Text ml="2">{location}</Text>
@@ -75,36 +77,6 @@ const UserWidget = ({ userId, picPath }) => {
           <Flex align="center">
             <Icon as={MdWorkOutline} fontSize="xl" color="gray.400" />
             <Text ml="2">{occupation}</Text>
-          </Flex>
-        </Flex>
-        <Divider my="2" />
-        <Flex justify="space-between" align="center" mb="2">
-          <Text>Who's viewed your profile</Text>
-          <Text fontWeight="500">1003</Text>
-        </Flex>
-        <Flex justify="space-between" align="center" mb="2">
-          <Text>Impressions on your Post</Text>
-          <Text fontWeight="500">7886</Text>
-        </Flex>
-        <Divider my="2" />
-        <Flex direction="column" gap="2">
-          <Flex align="center" justify="space-between">
-            <Flex align="center">
-              <img src="../assets/twitter.png" size="36px" />
-              <Box ml="2">
-                <Text fontWeight="500">Twitter</Text>
-              </Box>
-            </Flex>
-            <Icon as={MdEdit} color="teal.300" />
-          </Flex>
-          <Flex align="center" justify="space-between">
-            <Flex align="center">
-              <img src="../assets/linkedin.png" size="36px" />
-              <Box ml="2">
-                <Text fontWeight="500">LinkedIn</Text>
-              </Box>
-            </Flex>
-            <Icon as={MdEdit} color="teal.300" />
           </Flex>
         </Flex>
       </Flex>

@@ -62,7 +62,18 @@ const NavBar = () => {
               <InputLeftElement pointerEvents="none">
                 <SearchIcon color={textColor[colorMode]} />
               </InputLeftElement>
-              <Input type="text" placeholder="Search.." />
+              <Input
+                type="text"
+                placeholder="Search.."
+                border={"1px solid "}
+                bg={colorMode === "light" ? "#F6F6F6" : "#1A202C"}
+                borderRadius="2rem"
+                padding="1rem 2rem"
+                color={colorMode === "light" ? "black" : "white"}
+                _placeholder={{
+                  color: colorMode === "light" ? "gray.500" : "gray.300",
+                }}
+              />
             </InputGroup>
           )}
         </Flex>

@@ -26,7 +26,7 @@ import useStore from "../../state/store";
 import UserImage from "../Peices/UserImage";
 import Wrapper from "../Peices/Wrapper";
 
-const Practice = ({ picPath }) => {
+const CreatePost = ({ picPath }) => {
   const [isImage, setIsImage] = useState(false);
   const [image, setImage] = useState(null);
   const { user, token, setPosts } = useStore();
@@ -77,25 +77,21 @@ const Practice = ({ picPath }) => {
   return (
     <Wrapper>
       <Flex direction="column" alignItems="center">
-        <Flex
-          justify="space-between"
-          gap={"4"}
-          align="center"
-          mb="5px"
-          w="100%"
-        >
-          <UserImage size="70px" image={picPath} />
-          <Input
-            placeholder="What's on your mind..."
-            {...register("post")}
-            flexGrow={1}
-            bg={colorMode === "light" ? "#F6F6F6" : "#1A202C"}
-            borderRadius="2rem"
-            padding="2rem 2rem"
-            color={colorMode === "light" ? "black" : "white"}
-            marginRight="1rem"
-            mb={3} // Adds margin-bottom
-          />
+        <Flex justify="flex-start" align="center" mb="0.5rem" w="100%">
+          <UserImage size="60px" image={picPath} />
+          <Box flexGrow={1} ml="1rem">
+            <Input
+              placeholder="Write Somthing to Create Post..."
+              {...register("post")}
+              bg={colorMode === "light" ? "#F6F6F6" : "#1A202C"}
+              borderRadius="2rem"
+              padding="1.6rem 2rem"
+              color={colorMode === "light" ? "black" : "white"}
+              _placeholder={{
+                color: colorMode === "light" ? "gray.500" : "gray.300",
+              }}
+            />
+          </Box>
         </Flex>
         {isImage && (
           <Flex justify="space-between" alignItems="center">
@@ -192,4 +188,4 @@ const Practice = ({ picPath }) => {
   );
 };
 
-export default Practice;
+export default CreatePost;
