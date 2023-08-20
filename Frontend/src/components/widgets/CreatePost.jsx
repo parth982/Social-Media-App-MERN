@@ -57,21 +57,17 @@ const CreatePost = ({ picPath }) => {
       newFormData.append("picPath", image.name);
     }
 
-    try {
-      const response = await axios.post(
-        "http://localhost:4000/posts",
-        newFormData,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      const posts = response.data;
-      setPosts({ posts });
-      setImage(null);
-      reset({ post: "", picture: null });
-    } catch (error) {
-      console.error(error);
-    }
+    axios
+      .post("http://localhost:4000/posts", newFormData, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        const posts = res.data;
+        setPosts({ posts });
+        setImage(null);
+        reset({ post: "", picture: null });
+      })
+      .catch((err) => console.log(err));
   };
 
   return (

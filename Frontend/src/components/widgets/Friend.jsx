@@ -1,13 +1,12 @@
-import { FaUserPlus, FaUserMinus } from "react-icons/fa";
 import { Box, IconButton, Text, useColorModeValue } from "@chakra-ui/react";
+import { FaUserMinus, FaUserPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import UserImage from "../Peices/UserImage";
 import useStore from "../../state/store";
+import UserImage from "../Peices/UserImage";
 
 const Friend = ({ friendId, userName, subtitle, userPicPath }) => {
-  const navigate = useNavigate();
-
-  const { setFriends, token, friends, user } = useStore();
+  const { setFriends, token, user } = useStore();
+  const { friends } = user.friends;
 
   const mainColor = useColorModeValue("gray.700", "gray.300");
   const primaryLight = "#A3E3F1";

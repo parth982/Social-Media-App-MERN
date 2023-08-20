@@ -1,10 +1,5 @@
-import React, { useState } from "react";
-import {
-  AiOutlineHeart,
-  AiFillHeart,
-  AiOutlineComment,
-  AiOutlineRetweet,
-} from "react-icons/ai";
+import React, { useEffect, useState } from "react";
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import {
   Box,
   Divider,
@@ -27,8 +22,7 @@ const Post = ({
   likes,
   comments,
 }) => {
-  const { token, setPost, user } = useStore();
-  const [isComments, setIsComments] = useState(false);
+  const { token, setPost, user, posts } = useStore();
   const loggedInUserId = user._id;
   const isLiked = Boolean(likes[loggedInUserId]);
   const likeCount = Object.keys(likes).length;
@@ -46,7 +40,7 @@ const Post = ({
       body: JSON.stringify({ userId: loggedInUserId }),
     });
     const updatedPost = await response.json();
-    setPost({ post: updatedPost });
+    setPost({ updatedPost });
   };
 
   return (
@@ -89,28 +83,7 @@ const Post = ({
           />
           <Text ml="0.5rem">{likeCount}</Text>
         </Box>
-        <Box display="flex" alignItems="center">
-          <IconButton
-            onClick={() => setIsComments(!isComments)}
-            icon={<AiOutlineComment />}
-          />
-          <Text ml="0.5rem">{comments.length}</Text>
-        </Box>
-        <IconButton icon={<AiOutlineRetweet />} />
       </Box>
-      {isComments && (
-        <Box mt="0.5rem">
-          {comments.map((comment, i) => (
-            <Box key={`${userName}-${i}`} mt="0.5rem">
-              <Divider />
-              <Text color={mainColor} pl="1rem">
-                {comment}
-              </Text>
-            </Box>
-          ))}
-          <Divider />
-        </Box>
-      )}
     </Wrapper>
   );
 };

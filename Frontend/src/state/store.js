@@ -35,7 +35,7 @@ const useStore = create(
 
       setPosts: (posts) => {
         set({
-          posts: posts,
+          posts,
         });
       },
 

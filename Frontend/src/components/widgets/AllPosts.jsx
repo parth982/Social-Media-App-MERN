@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from "react";
 import Post from "./Post";
 import useStore from "../../state/store";
+import axios from "axios";
 
-const AllPosts = ({ userId, isProfile = false }) => {
+const AllPosts = ({ userId }) => {
   const { token, posts, setPosts } = useStore();
   // const [posts, setPosts] = useState([]);
 
-  const getPosts = async () => {
-    const response = await fetch("http://localhost:4000/posts", {
-      method: "GET",
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    const data = await response.json();
-    setPosts(data);
+  const getPosts = () => {
+    axios
+      .get("http://localhost:4000/posts", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        const posts = res.data;
+        setPosts({ posts });
+      })
+      .catch((err) => console.log(err));
   };
 
   const getUserPosts = async () => {
@@ -28,11 +32,7 @@ const AllPosts = ({ userId, isProfile = false }) => {
   };
 
   useEffect(() => {
-    if (isProfile) {
-      getUserPosts();
-    } else {
-      getPosts();
-    }
+    getPosts();
   }, []);
 
   return (

@@ -1,14 +1,12 @@
 import {
-  Box,
   Divider,
   Flex,
   Heading,
   Icon,
   Text,
   useColorModeValue,
-  Image,
 } from "@chakra-ui/react";
-import { MdEdit, MdOutlineLocationOn, MdWorkOutline } from "react-icons/md";
+import { MdOutlineLocationOn, MdWorkOutline } from "react-icons/md";
 
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -38,7 +36,7 @@ const UserWidget = ({ userId, picPath }) => {
 
   useEffect(() => {
     getUser();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!user) return null;
 

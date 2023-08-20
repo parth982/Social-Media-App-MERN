@@ -12,11 +12,9 @@ const HomePage = () => {
   const [isDesktopScreen] = useMediaQuery("(min-width:1000px)");
   const { user } = useStore();
 
-  // const isProfile = user?._id === userId;
-
   return (
     <Box>
-      <Navbar />
+      <NavBar />
       <Box
         width="100%"
         padding="2rem 6%"
@@ -34,7 +32,7 @@ const HomePage = () => {
           <CreatePost picPath={user.picPath} />
 
           <Divider my="1rem" />
-          <AllPosts userId={user._id} isProfile={true} />
+          <AllPosts userId={user._id} />
         </Box>
         {isDesktopScreen && (
           <Box flexBasis="26%">
