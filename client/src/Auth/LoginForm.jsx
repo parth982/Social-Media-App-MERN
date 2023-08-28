@@ -106,6 +106,7 @@ const LoginForm = () => {
             <Input
               type={show ? "text" : "password"}
               placeholder="Enter password"
+              autoComplete="current-password"
               {...register("password")}
             />
             <InputRightElement width="4.5rem">

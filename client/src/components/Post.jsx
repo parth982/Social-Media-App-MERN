@@ -4,6 +4,7 @@ import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import Friend from "../components/Friend";
 import Wrapper from "../components/Wrapper";
 import useStore from "../state/store";
+import axios from "axios";
 
 const Post = ({
   postId,
@@ -14,15 +15,26 @@ const Post = ({
   picPath,
   userPicPath,
   likes,
-  comments,
 }) => {
-  const { token, setPost, user, posts } = useStore();
+  const { token, setPost, user, setPosts } = useStore();
   const loggedInUserId = user._id;
   const isLiked = Boolean(likes[loggedInUserId]);
   const likeCount = Object.keys(likes).length;
 
   const mainColor = useColorModeValue("gray.700", "gray.300");
   const primaryColor = "#319795";
+
+  const getPosts = () => {
+    axios
+      .get("http://localhost:4000/posts", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        const posts = res.data;
+        setPosts({ posts });
+      })
+      .catch((err) => console.log(err));
+  };
 
   const patchLike = async () => {
     const response = await fetch(`http://localhost:4000/posts/${postId}/like`, {
@@ -35,6 +47,7 @@ const Post = ({
     });
     const updatedPost = await response.json();
     setPost({ updatedPost });
+    getPosts();
   };
 
   return (

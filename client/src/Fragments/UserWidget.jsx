@@ -16,9 +16,9 @@ import UserImage from "../components/UserImage";
 import Wrapper from "../components/Wrapper";
 
 const UserWidget = ({ userId, picPath }) => {
-  const [user, setUser] = useState(null);
+  // const [user, setUser] = useState(null);
   const navigate = useNavigate();
-  const { token } = useStore();
+  const { token, user } = useStore();
   const textColor = useColorModeValue("gray.800", "gray.200");
 
   const getUser = async () => {
@@ -35,15 +35,14 @@ const UserWidget = ({ userId, picPath }) => {
   };
 
   useEffect(() => {
-    setInterval(() => {
-      getUser();
-    }, 1000);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    // setInterval(() => {
+    // getUser();
+    // }, 1000);
+  }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!user) return null;
 
   const { userName, location, occupation, friends } = user;
-  // console.log(friends);
 
   return (
     <Wrapper>

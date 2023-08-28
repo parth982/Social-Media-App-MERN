@@ -3,7 +3,7 @@ import Post from "../components/Post";
 import useStore from "../state/store";
 import axios from "axios";
 
-const AllPosts = ({ userId }) => {
+const AllPosts = () => {
   const { token, posts, setPosts } = useStore();
 
   const getPosts = () => {
@@ -20,7 +20,7 @@ const AllPosts = ({ userId }) => {
 
   useEffect(() => {
     getPosts();
-  }, [posts]);
+  }, []);
 
   return (
     <>

@@ -6,7 +6,6 @@ import useStore from "../state/store";
 
 const FriendsList = ({ userId }) => {
   const { setFriends, token, user } = useStore();
-
   const getFriends = async () => {
     const response = await fetch(
       `http://localhost:4000/users/${userId}/friends`,
@@ -21,7 +20,7 @@ const FriendsList = ({ userId }) => {
 
   useEffect(() => {
     getFriends();
-  }, [user]);
+  }, []);
 
   const mainColor = useColorModeValue("#333333", "#A3A3A3");
 
